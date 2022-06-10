@@ -18,6 +18,7 @@ typedef enum
 	MenuPage_Story,
 	MenuPage_Freeplay,
 	MenuPage_Mods,
+	MenuPage_Credits,
 	MenuPage_Options,
 	
 	#ifdef PSXF_NETWORK
