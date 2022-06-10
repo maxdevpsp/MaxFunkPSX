@@ -1,52 +1,45 @@
-# Prerequisites
-*.d
+# Exclude files that shouldn't be included
+do.sh
+pcsx.json
+memcard1.mcd
+memcard2.mcd
+license*.dat
+mips/psyq/
 
-# Object files
-*.o
-*.ko
-*.obj
+# Exclude executable files
+*.cue
 *.elf
-
-# Linker output
-*.ilk
+*.bin
 *.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
+*.ps-exe
 *.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+/Overlay.*
+!overlay.ld
+tools/funkinisopak/funkinisopak
+tools/funkinarcpak/funkinarcpak
+tools/funkinchartpak/funkinchartpak
+tools/funkinpicopak/funkinpicopak
+tools/funkintimpak/funkintimpak
+tools/funkinexepak/funkinexepak
+tools/funkinmuspak/funkinmuspak
+tools/bin2h/bin2h
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# Exclude object and link files
+obj/
+bin/
+!bin/index.html
+!bin/README.txt
+*.o
+*.dep
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Exclude CMake build directory
+build/
+
+# Exclude converted assets
+iso/*/*.tim
+iso/*/*.arc
+iso/*/*/*.mus
+iso/*/*.cht
+src/iso/
+
+# Big Chungus
