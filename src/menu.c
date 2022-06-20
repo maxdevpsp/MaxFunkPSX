@@ -23,6 +23,8 @@
 
 #include "stage.h"
 #include "character/gf.h"
+#include "character/dad.h"
+#include "character/spook.h"
 
 //Menu messages
 static const char *funny_messages[][2] = {
@@ -134,10 +136,13 @@ static struct
 	} page_param;
 	
 	//Menu assets
-	Gfx_Tex tex_back, tex_ng, tex_story, tex_title;
+	Gfx_Tex tex_back, tex_ng, tex_story, tex_title, tex_board;
 	FontData font_bold, font_arial;
+
+	//Story Mode BGs
+	Gfx_Tex smbg_1, smbg_2;
 	
-	Character *gf; //Title Girlfriend
+	Character *gf, *sm_gf, *sm_dad, *sm_spook; //Title Girlfriend
 } menu;
 
 #ifdef PSXF_NETWORK
@@ -295,18 +300,31 @@ void Menu_Load(MenuPage page)
 	Gfx_LoadTex(&menu.tex_ng,    Archive_Find(menu_arc, "ng.tim"),    0);
 	Gfx_LoadTex(&menu.tex_story, Archive_Find(menu_arc, "story.tim"), 0);
 	Gfx_LoadTex(&menu.tex_title, Archive_Find(menu_arc, "title.tim"), 0);
+	Gfx_LoadTex(&menu.tex_board, Archive_Find(menu_arc, "board.tim"), 0);
 	Mem_Free(menu_arc);
+
+	IO_Data smbg_arc = IO_Read("\\MENU\\STORYBG.ARC;1");
+	Gfx_LoadTex(&menu.smbg_1,  Archive_Find(smbg_arc, "1.tim"),  0);
+	Gfx_LoadTex(&menu.smbg_2,  Archive_Find(smbg_arc, "2.tim"),  0);
+	Mem_Free(smbg_arc);
 	
 	FontData_Load(&menu.font_bold, Font_Bold);
 	FontData_Load(&menu.font_arial, Font_Arial);
 	
 	menu.gf = Char_GF_New(FIXED_DEC(62,1), FIXED_DEC(-12,1));
+
+	//Story mode chars
+	menu.sm_gf = Char_GF_New(FIXED_DEC(-70,1), FIXED_DEC(0,1));
+	menu.sm_dad = Char_Dad_New(FIXED_DEC(-105,1), FIXED_DEC(95,1));
+	menu.sm_spook = Char_Spook_New(FIXED_DEC(-85,1), FIXED_DEC(95,1));
+
 	stage.camera.x = stage.camera.y = FIXED_DEC(0,1);
 	stage.camera.bzoom = FIXED_UNIT;
 	stage.gf_speed = 4;
 	
 	//Initialize menu state
 	menu.select = menu.next_select = 0;
+	stage.inmenu = 1;
 	
 	switch (menu.page = menu.next_page = page)
 	{
@@ -341,6 +359,9 @@ void Menu_Unload(void)
 {
 	//Free title Girlfriend
 	Character_Free(menu.gf);
+	Character_Free(menu.sm_gf);
+	Character_Free(menu.sm_dad);
+	Character_Free(menu.sm_spook);
 }
 
 void Menu_ToStage(StageId id, StageDiff diff, boolean story)
@@ -708,7 +729,7 @@ void Menu_Tick(void)
 			}
 			
 			//Draw difficulty selector
-			Menu_DifficultySelector(SCREEN_WIDTH - 75, 80);
+			Menu_DifficultySelector(SCREEN_WIDTH - 75, 215);
 			
 			//Handle option and selection
 			if (menu.trans_time > 0 && (menu.trans_time -= timer_dt) <= 0)
@@ -755,26 +776,22 @@ void Menu_Tick(void)
 			//Draw week name and tracks
 			menu.font_bold.draw(&menu.font_bold,
 				menu_options[menu.select].name,
-				SCREEN_WIDTH - 16,
-				24,
-				FontAlign_Right
+				5 + SCREEN_WIDEADD,
+				15 + SCREEN_TALLADD,
+				FontAlign_Left
 			);
 			
 			const char * const *trackp = menu_options[menu.select].tracks;
 			for (size_t i = 0; i < COUNT_OF(menu_options[menu.select].tracks); i++, trackp++)
 			{
 				if (*trackp != NULL)
-					menu.font_bold.draw(&menu.font_bold,
+					menu.font_arial.draw(&menu.font_arial,
 						*trackp,
-						SCREEN_WIDTH - 16,
-						SCREEN_HEIGHT - (4 * 24) + (i * 24),
-						FontAlign_Right
+						5,
+						290 - (4 * 24) + (i * 12) + SCREEN_TALLADD,
+						FontAlign_Left
 					);
 			}
-			
-			//Draw upper strip
-			RECT name_bar = {0, 16, SCREEN_WIDTH, 32};
-			Gfx_DrawRect(&name_bar, 249, 207, 81);
 			
 			//Draw options
 			s32 next_scroll = menu.select * FIXED_DEC(48,1);
@@ -790,13 +807,56 @@ void Menu_Tick(void)
 						continue;
 					if (y >= SCREEN_HEIGHT)
 						break;
-					Menu_DrawWeek(menu_options[i].week, 48, y);
+					Menu_DrawWeek(menu_options[i].week, 180, y);
 				}
 			}
 			else if (animf_count & 2)
 			{
 				//Draw selected option
 				Menu_DrawWeek(menu_options[menu.select].week, 48, 64 + (menu.select * 48) - (menu.scroll >> FIXED_SHIFT));
+			}
+
+			//Draw story mode's board
+			RECT board_src = {0, 0, 209, 240};
+			RECT board_dst = {
+				111,
+				0,
+				209,
+				240
+			};
+			Gfx_DrawTex(&menu.tex_board, &board_src, &board_dst);
+
+			//Draw Story mode's BGs and chars
+			RECT smbg_src = {0, 0, 159, 240};
+			RECT smbg_dst = {
+				0,
+				0,
+				159,
+				240
+			};
+
+			switch (menu.select)
+			{
+				case 0:
+					//Draw Girlfriend
+					menu.sm_gf->tick(menu.sm_gf);
+					Gfx_DrawTex(&menu.smbg_1, &smbg_src, &smbg_dst);
+					break;
+
+				case 1:
+					//Draw Dad
+					menu.sm_dad->tick(menu.sm_dad);
+					Gfx_DrawTex(&menu.smbg_1, &smbg_src, &smbg_dst);
+					break;
+
+				case 2:
+					//Draw Dad
+					menu.sm_spook->tick(menu.sm_spook);
+					Gfx_DrawTex(&menu.smbg_2, &smbg_src, &smbg_dst);
+					break;
+			
+				default:
+					break;
 			}
 			
 			break;

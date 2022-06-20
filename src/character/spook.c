@@ -166,25 +166,44 @@ Character *Char_Spook_New(fixed_t x, fixed_t y)
 	this->character.focus_y = FIXED_DEC(-80,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
-	//Load art
-	this->arc_main = IO_Read("\\CHAR\\SPOOK.ARC;1");
+	if (stage.inmenu == 1)
+	{
+		//Load art
+		this->arc_main = IO_Read("\\CHAR\\SPOOK.ARC;1");
 	
-	const char **pathp = (const char *[]){
-		"idle0.tim", //Spook_ArcMain_Idle0
-		"idle1.tim", //Spook_ArcMain_Idle1
-		"idle2.tim", //Spook_ArcMain_Idle2
-		"left.tim",  //Spook_ArcMain_Left
-		"down.tim",  //Spook_ArcMain_Down
-		"up.tim",    //Spook_ArcMain_Up
-		"right.tim", //Spook_ArcMain_Right
-		NULL
-	};
-	IO_Data *arc_ptr = this->arc_ptr;
-	for (; *pathp != NULL; pathp++)
-		*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+		const char **pathp = (const char *[]){
+			"idle0.tim", //Spook_ArcMain_Idle0
+			"idle1.tim", //Spook_ArcMain_Idle1
+			"idle2.tim", //Spook_ArcMain_Idle2
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+
+		//Initialize render state
+		this->tex_id = this->frame = 0xFF;
+	} else {
+		//Load art
+		this->arc_main = IO_Read("\\CHAR\\SPOOK.ARC;1");
 	
-	//Initialize render state
-	this->tex_id = this->frame = 0xFF;
+		const char **pathp = (const char *[]){
+			"idle0.tim", //Spook_ArcMain_Idle0
+			"idle1.tim", //Spook_ArcMain_Idle1
+			"idle2.tim", //Spook_ArcMain_Idle2
+			"left.tim",  //Spook_ArcMain_Left
+			"down.tim",  //Spook_ArcMain_Down
+			"up.tim",    //Spook_ArcMain_Up
+			"right.tim", //Spook_ArcMain_Right
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+
+		//Initialize render state
+		this->tex_id = this->frame = 0xFF;
+	}
 	
 	return (Character*)this;
 }

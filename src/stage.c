@@ -1235,6 +1235,9 @@ void Stage_Load(StageId id, StageDiff difficulty, boolean story)
 	stage.stage_def = &stage_defs[stage.stage_id = id];
 	stage.stage_diff = difficulty;
 	stage.story = story;
+
+	//Make sure we're not using Story Mode chars
+	stage.inmenu = 0;
 	
 	//Load HUD textures
 	if (id >= StageId_6_1 && id <= StageId_6_3)

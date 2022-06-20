@@ -25,6 +25,7 @@
 			<dir name = "menu">
 				<file name = "loading.tim" type = "data" source = "iso/menu/loading.tim"/>
 				<file name = "menu.arc" type = "data" source = "iso/menu/menu.arc"/>
+				<file name = "storybg.arc" type = "data" source = "iso/menu/storybg/main.arc"/>
 			</dir>
 			
 			<!-- Fonts -->

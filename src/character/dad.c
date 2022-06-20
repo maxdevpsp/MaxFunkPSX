@@ -140,24 +140,42 @@ Character *Char_Dad_New(fixed_t x, fixed_t y)
 	this->character.focus_y = FIXED_DEC(-115,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
-	//Load art
-	this->arc_main = IO_Read("\\CHAR\\DAD.ARC;1");
+	if (stage.inmenu == 1)
+	{
+		//Load art
+		this->arc_main = IO_Read("\\CHAR\\DAD.ARC;1");
 	
-	const char **pathp = (const char *[]){
-		"idle0.tim", //Dad_ArcMain_Idle0
-		"idle1.tim", //Dad_ArcMain_Idle1
-		"left.tim",  //Dad_ArcMain_Left
-		"down.tim",  //Dad_ArcMain_Down
-		"up.tim",    //Dad_ArcMain_Up
-		"right.tim", //Dad_ArcMain_Right
-		NULL
-	};
-	IO_Data *arc_ptr = this->arc_ptr;
-	for (; *pathp != NULL; pathp++)
-		*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+		const char **pathp = (const char *[]){
+			"idle0.tim", //Dad_ArcMain_Idle0
+			"idle1.tim", //Dad_ArcMain_Idle1
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
 	
-	//Initialize render state
-	this->tex_id = this->frame = 0xFF;
+		//Initialize render state
+		this->tex_id = this->frame = 0xFF;
+	} else {
+		//Load art
+		this->arc_main = IO_Read("\\CHAR\\DAD.ARC;1");
+	
+		const char **pathp = (const char *[]){
+			"idle0.tim", //Dad_ArcMain_Idle0
+			"idle1.tim", //Dad_ArcMain_Idle1
+			"left.tim",  //Dad_ArcMain_Left
+			"down.tim",  //Dad_ArcMain_Down
+			"up.tim",    //Dad_ArcMain_Up
+			"right.tim", //Dad_ArcMain_Right
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+	
+		//Initialize render state
+		this->tex_id = this->frame = 0xFF;
+	}
 	
 	return (Character*)this;
 }
