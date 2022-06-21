@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "smspook.h": "c",
+        "pico.h": "c"
+    }
+}

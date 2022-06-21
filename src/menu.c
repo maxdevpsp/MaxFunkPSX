@@ -24,7 +24,8 @@
 #include "stage.h"
 #include "character/gf.h"
 #include "character/dad.h"
-#include "character/spook.h"
+#include "character/smspook.h"
+#include "character/smpico.h"
 
 //Menu messages
 static const char *funny_messages[][2] = {
@@ -136,13 +137,13 @@ static struct
 	} page_param;
 	
 	//Menu assets
-	Gfx_Tex tex_back, tex_ng, tex_story, tex_title, tex_board;
+	Gfx_Tex tex_back, tex_story, tex_title, tex_board;
 	FontData font_bold, font_arial;
 
 	//Story Mode BGs
-	Gfx_Tex smbg_1, smbg_2;
+	Gfx_Tex smbg_1, smbg_2, smbg_3;
 	
-	Character *gf, *sm_gf, *sm_dad, *sm_spook; //Title Girlfriend
+	Character *gf, *sm_gf, *sm_dad, *sm_spook, *sm_pico; //Title Girlfriend
 } menu;
 
 #ifdef PSXF_NETWORK
@@ -297,7 +298,6 @@ void Menu_Load(MenuPage page)
 	//Load menu assets
 	IO_Data menu_arc = IO_Read("\\MENU\\MENU.ARC;1");
 	Gfx_LoadTex(&menu.tex_back,  Archive_Find(menu_arc, "back.tim"),  0);
-	Gfx_LoadTex(&menu.tex_ng,    Archive_Find(menu_arc, "ng.tim"),    0);
 	Gfx_LoadTex(&menu.tex_story, Archive_Find(menu_arc, "story.tim"), 0);
 	Gfx_LoadTex(&menu.tex_title, Archive_Find(menu_arc, "title.tim"), 0);
 	Gfx_LoadTex(&menu.tex_board, Archive_Find(menu_arc, "board.tim"), 0);
@@ -306,6 +306,7 @@ void Menu_Load(MenuPage page)
 	IO_Data smbg_arc = IO_Read("\\MENU\\STORYBG.ARC;1");
 	Gfx_LoadTex(&menu.smbg_1,  Archive_Find(smbg_arc, "1.tim"),  0);
 	Gfx_LoadTex(&menu.smbg_2,  Archive_Find(smbg_arc, "2.tim"),  0);
+	Gfx_LoadTex(&menu.smbg_3,  Archive_Find(smbg_arc, "3.tim"),  0);
 	Mem_Free(smbg_arc);
 	
 	FontData_Load(&menu.font_bold, Font_Bold);
@@ -316,7 +317,8 @@ void Menu_Load(MenuPage page)
 	//Story mode chars
 	menu.sm_gf = Char_GF_New(FIXED_DEC(-70,1), FIXED_DEC(0,1));
 	menu.sm_dad = Char_Dad_New(FIXED_DEC(-105,1), FIXED_DEC(95,1));
-	menu.sm_spook = Char_Spook_New(FIXED_DEC(-85,1), FIXED_DEC(95,1));
+	menu.sm_spook = Char_SMSpook_New(FIXED_DEC(-85,1), FIXED_DEC(95,1));
+	menu.sm_pico = Char_SMPico_New(FIXED_DEC(-85,1), FIXED_DEC(95,1));
 
 	stage.camera.x = stage.camera.y = FIXED_DEC(0,1);
 	stage.camera.bzoom = FIXED_UNIT;
@@ -362,6 +364,7 @@ void Menu_Unload(void)
 	Character_Free(menu.sm_gf);
 	Character_Free(menu.sm_dad);
 	Character_Free(menu.sm_spook);
+	Character_Free(menu.sm_pico);
 }
 
 void Menu_ToStage(StageId id, StageDiff diff, boolean story)
@@ -418,7 +421,7 @@ void Menu_Tick(void)
 					menu.page = menu.next_page = MenuPage_Title;
 				
 				//Draw different text depending on beat
-				RECT src_ng = {0, 0, 128, 128};
+				//RECT src_ng = {0, 0, 128, 128};
 				const char **funny_message = funny_messages[menu.page_state.opening.funny_message];
 				
 				switch (beat)
@@ -436,7 +439,7 @@ void Menu_Tick(void)
 					
 					case 7:
 						menu.font_bold.draw(&menu.font_bold, "NEWGROUNDS",    SCREEN_WIDTH2, SCREEN_HEIGHT2 - 32, FontAlign_Center);
-						Gfx_BlitTex(&menu.tex_ng, &src_ng, (SCREEN_WIDTH - 128) >> 1, SCREEN_HEIGHT2 - 16);
+						//Gfx_BlitTex(&menu.tex_ng, &src_ng, (SCREEN_WIDTH - 128) >> 1, SCREEN_HEIGHT2 - 16);
 				//Fallthrough
 					case 6:
 					case 5:
@@ -813,7 +816,7 @@ void Menu_Tick(void)
 			else if (animf_count & 2)
 			{
 				//Draw selected option
-				Menu_DrawWeek(menu_options[menu.select].week, 48, 64 + (menu.select * 48) - (menu.scroll >> FIXED_SHIFT));
+				Menu_DrawWeek(menu_options[menu.select].week, 180, 64 + (menu.select * 48) - (menu.scroll >> FIXED_SHIFT));
 			}
 
 			//Draw story mode's board
@@ -850,9 +853,15 @@ void Menu_Tick(void)
 					break;
 
 				case 2:
-					//Draw Dad
+					//Draw Spooky Kids
 					menu.sm_spook->tick(menu.sm_spook);
 					Gfx_DrawTex(&menu.smbg_2, &smbg_src, &smbg_dst);
+					break;
+
+				case 3:
+					//Draw Pico
+					menu.sm_pico->tick(menu.sm_pico);
+					Gfx_DrawTex(&menu.smbg_3, &smbg_src, &smbg_dst);
 					break;
 			
 				default:

@@ -72,6 +72,8 @@ add_executable(funkin
 	"src/character/dad.h"
 	"src/character/spook.c"
 	"src/character/spook.h"
+	"src/character/smspook.c"
+	"src/character/smspook.h"
 	"src/character/pico.c"
 	"src/character/pico.h"
 	"src/character/mom.c"

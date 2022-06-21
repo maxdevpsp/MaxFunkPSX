@@ -39,6 +39,7 @@
 				<file name = "hud0.tim" type = "data" source = "iso/stage/hud0.tim"/>
 				<file name = "hud1.tim" type = "data" source = "iso/stage/hud1.tim"/>
 				<file name = "hud0weeb.tim" type = "data" source = "iso/stage/hud0weeb.tim"/>
+				<file name = "hud1weeb.tim" type = "data" source = "iso/stage/hud1weeb.tim"/>
 			</dir>
 			
 			<!-- Week 1 assets -->
@@ -227,9 +228,11 @@
 				
 				<!-- Spook assets -->
 				<file name = "spook.arc" type = "data" source = "iso/spook/main.arc"/>
+				<file name = "smspook.arc" type = "data" source = "iso/spook/story/main.arc"/>
 				
 				<!-- Pico assets -->
 				<file name = "pico.arc" type = "data" source = "iso/pico/main.arc"/>
+				<file name = "smpico.arc" type = "data" source = "iso/pico/story/main.arc"/>
 				
 				<!-- Mom assets -->
 				<file name = "mom.arc" type = "data" source = "iso/mom/main.arc"/>

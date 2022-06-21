@@ -6,13 +6,16 @@ all: \
 	iso/font/arial.tim \
 	iso/stage/hud0.tim \
 	iso/stage/hud1.tim \
+	iso/stage/hud1weeb.tim \
 	iso/stage/hud0weeb.tim \
 	iso/bf/main.arc \
 	iso/bf/dead.arc \
 	iso/bf/weeb.arc \
 	iso/dad/main.arc \
 	iso/spook/main.arc \
+	iso/spook/story/main.arc \
 	iso/pico/main.arc \
+	iso/pico/story/main.arc \
 	iso/mom/main.arc \
 	iso/mom/hair.tim \
 	iso/bf/xmas.arc \
@@ -45,8 +48,8 @@ iso/%.arc:
 	tools/funkinarcpak/funkinarcpak $@ $^
 
 # Menu
-iso/menu/menu.arc: iso/menu/back.tim iso/menu/ng.tim iso/menu/story.tim iso/menu/title.tim iso/menu/board.tim
-iso/menu/storybg/main.arc: iso/menu/storybg/1.tim iso/menu/storybg/2.tim
+iso/menu/menu.arc: iso/menu/back.tim iso/menu/story.tim iso/menu/title.tim iso/menu/board.tim
+iso/menu/storybg/main.arc: iso/menu/storybg/1.tim iso/menu/storybg/2.tim iso/menu/storybg/3.tim
 
 # BF
 iso/bf/main.arc: iso/bf/bf0.tim iso/bf/bf1.tim iso/bf/bf2.tim iso/bf/bf3.tim iso/bf/bf4.tim iso/bf/bf5.tim iso/bf/bf6.tim iso/bf/dead0.tim
@@ -58,9 +61,11 @@ iso/dad/main.arc: iso/dad/idle0.tim iso/dad/idle1.tim iso/dad/left.tim iso/dad/d
 
 # Spook
 iso/spook/main.arc: iso/spook/idle0.tim iso/spook/idle1.tim iso/spook/idle2.tim iso/spook/left.tim iso/spook/down.tim iso/spook/up.tim iso/spook/right.tim
+iso/spook/story/main.arc: iso/spook/story/idle0.tim iso/spook/story/idle1.tim iso/spook/story/idle2.tim
 
 # Pico
 iso/pico/main.arc: iso/pico/idle.tim iso/pico/hit0.tim iso/pico/hit1.tim
+iso/pico/story/main.arc: iso/pico/story/idle.tim
 
 # Mom
 iso/mom/main.arc: iso/mom/idle0.tim iso/mom/idle1.tim iso/mom/left.tim iso/mom/down.tim iso/mom/up.tim iso/mom/right.tim
