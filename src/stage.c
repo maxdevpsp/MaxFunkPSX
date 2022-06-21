@@ -78,6 +78,7 @@ static const u8 note_anims[4][3] = {
 
 static const StageDef stage_defs[StageId_Max] = {
 	#include "stagedef_disc1.h"
+	#include "stagedef_mods.h"
 };
 
 //Stage state
