@@ -39,9 +39,11 @@ StageBack *Back_Dummy_New(void)
 	
 	//Use non-pitch black background
 	if (stage.stage_id == StageId_Bonus_1)
+	{
 		Gfx_SetClear(0, 0, 0);
-	else
+	} else {
 		Gfx_SetClear(62, 48, 64);
+	}
 	
 	return (StageBack*)this;
 }
