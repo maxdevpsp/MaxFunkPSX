@@ -38,7 +38,10 @@ StageBack *Back_Dummy_New(void)
 	this->back.free = Back_Dummy_Free;
 	
 	//Use non-pitch black background
-	Gfx_SetClear(62, 48, 64);
+	if (stage.stage_id == StageId_Bonus_1)
+		Gfx_SetClear(0, 0, 0);
+	else
+		Gfx_SetClear(62, 48, 64);
 	
 	return (StageBack*)this;
 }

@@ -60,6 +60,8 @@ static const XA_TrackDef xa_tracks[] = {
 	//CLWNB.XA
 	{XA_ClwnB, XA_LENGTH(21886)}, //XA_Hellclown
 	{XA_ClwnB, XA_LENGTH(19550)}, //XA_Expurgation
+	//BONUSA.XA
+	{XA_BonusA, XA_LENGTH(23500)}, //XA_Expurgation
 };
 
 static const char *xa_paths[] = {
@@ -82,6 +84,7 @@ static const char *xa_paths[] = {
 	"\\MUSIC\\KAPIB.XA;1",  //XA_KapiB
 	"\\MUSIC\\CLWNA.XA;1",  //XA_ClwnA
 	"\\MUSIC\\CLWNB.XA;1",  //XA_ClwnB
+	"\\MUSIC\\BONUSA.XA;1",  //XA_BonusA
 	NULL,
 };
 
@@ -145,6 +148,8 @@ static const XA_Mp3 xa_mp3s[] = {
 	//CLWNB.XA
 	{"hellclown", true}, //XA_Hellclown
 	{"expurgation", true}, //XA_Expurgation
+	//BONUSA.XA
+	{"og", true}, //XA_OG
 	
 	{NULL, false}
 };

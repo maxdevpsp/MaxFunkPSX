@@ -1014,6 +1014,7 @@ void Menu_Tick(void)
 				{StageId_Clwn_1, "VS TRICKY", true},
 				{StageId_Clwn_4, "   EXPURGATION", false},
 				{StageId_2_4,    "CLUCKED", false},
+				{StageId_Bonus_1, "FNF PSX MILF HARD", false},
 			};
 			
 			//Initialize page

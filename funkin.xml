@@ -215,6 +215,12 @@
 				<!-- Expurgation charts -->
 				<file name = "clwn.4h.cht" type = "data" source = "iso/chart/expurgation-hard.json.cht"/>
 			</dir>
+
+			<!-- Bonus assets -->
+			<dir name = "clwn">
+				<!-- OG charts -->
+				<file name = "bonus.1n.cht" type = "data" source = "iso/chart/og.json.cht"/>
+			</dir>
 			
 			<!-- Character assets -->
 			<dir name = "char">
@@ -301,6 +307,8 @@
 				<file name = "clwna.xa" type = "xa" source = "iso/music/clwna.xa"/>
 				<dummy sectors="128"/>
 				<file name = "clwnb.xa" type = "xa" source = "iso/music/clwnb.xa"/>
+				<dummy sectors="128"/>
+				<file name = "bonusa.xa" type = "xa" source = "iso/music/bonusa.xa"/>
 				<dummy sectors="128"/>
 			</dir>
 			

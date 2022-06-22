@@ -143,3 +143,19 @@
 		
 		StageId_2_4, 0
 	},
+	{ //StageId_Bonus_1 (OG)
+		//Characters
+		{Char_BF_New,    FIXED_DEC(60,1),  FIXED_DEC(100,1)},
+		{Char_BF_New, FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
+		{NULL,     FIXED_DEC(0,1),  FIXED_DEC(-10,1)},
+		
+		//Stage background
+		Back_Dummy_New,
+		
+		//Song info
+		{FIXED_DEC(32,10),FIXED_DEC(32,10),FIXED_DEC(32,10)},
+		0x82, 1,
+		XA_OG, 0,
+		
+		StageId_Bonus_1, 0
+	},

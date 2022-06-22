@@ -31,6 +31,7 @@ typedef enum
 	XA_KapiB,  //KAPIB.XA
 	XA_ClwnA,  //CLWNA.XA
 	XA_ClwnB,  //CLWNB.XA
+	XA_BonusA,  //BONUSA.XA
 	
 	XA_Max,
 } XA_File;
@@ -90,6 +91,8 @@ typedef enum
 	//CLWNB.XA
 	XA_Hellclown,   //Hellclown
 	XA_Expurgation, //Expurgation
+	//BONUSA.XA
+	XA_OG, //OG
 	
 	XA_TrackMax,
 } XA_Track;

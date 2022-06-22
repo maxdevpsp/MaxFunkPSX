@@ -1056,6 +1056,7 @@ static void Stage_LoadChart(void)
 		static const char *mod_format[] = {
 			"\\KAPI\\KAPI.%d%c.CHT;1", //Kapi
 			"\\CLWN\\CLWN.%d%c.CHT;1" //Tricky
+			"\\BONUS\\BONUS.%d%c.CHT;1" //Bonus
 		};
 		
 		sprintf(chart_path, mod_format[stage.stage_def->week & 0x7F], stage.stage_def->week_song, "ENH"[stage.stage_diff]);

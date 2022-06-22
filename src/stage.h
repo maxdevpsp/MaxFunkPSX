@@ -77,6 +77,8 @@ typedef enum
 	StageId_Clwn_2, //Madness
 	StageId_Clwn_3, //Hellclown
 	StageId_Clwn_4, //Expurgation
+
+	StageId_Bonus_1, //OG
 	
 	StageId_2_4, //Clucked
 	
