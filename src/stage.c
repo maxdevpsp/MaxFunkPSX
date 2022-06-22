@@ -1055,7 +1055,7 @@ static void Stage_LoadChart(void)
 		//Use mod path convention
 		static const char *mod_format[] = {
 			"\\KAPI\\KAPI.%d%c.CHT;1", //Kapi
-			"\\CLWN\\CLWN.%d%c.CHT;1" //Tricky
+			"\\CLWN\\CLWN.%d%c.CHT;1", //Tricky
 			"\\BONUS\\BONUS.%d%c.CHT;1" //Bonus
 		};
 		

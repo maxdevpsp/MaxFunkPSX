@@ -219,7 +219,7 @@
 			<!-- Bonus assets -->
 			<dir name = "bonus">
 				<!-- OG charts -->
-				<file name = "bonus.1n.cht" type = "data" source = "iso/chart/og.json.cht"/>
+				<file name = "bonus.1h.cht" type = "data" source = "iso/chart/og.json.cht"/>
 			</dir>
 			
 			<!-- Character assets -->
